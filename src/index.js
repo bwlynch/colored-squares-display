@@ -28,36 +28,31 @@ class Area extends React.Component {
     let initialSquares = [];
     let i;
     for (i = 0; i < 49; i++) {
-      initialSquares.push(this.props.colorList[0]);
+      initialSquares.push('#000000');
     }
-    this.state = {squareColors: initialSquares, currentColorNum: 1};
+    this.state = {squareColors: initialSquares, currentColor: '#000000'};
   }
 
   mouseOn(value) {
-    const colorList = this.props.colorList;
     let currentSquares = this.state.squareColors;
-    currentSquares[value] = colorList[this.state.currentColorNum];
+    currentSquares[value] = this.state.currentColor;
     this.setState({squareColors: currentSquares});
     let k;
     var colorDone = true;
     for (k = 0; k < 49; k++) {
-      /*console.log('a');
-      console.log(this.state.squareColors[k]);
-      console.log(colorList[this.state.currentColorNum]);
-      console.log('b');*/
-      if (String(this.state.squareColors[k]) != String(colorList[this.state.currentColorNum])) {
+      if (String(this.state.squareColors[k]) != String(this.state.currentColor)) {
         colorDone = false;
       }
     }
     if (colorDone === true) {
-      let newColorNum = this.state.currentColorNum;
-      newColorNum++;
-      console.log(newColorNum);
-      console.log(colorList.length)
-      if (newColorNum > (colorList.length - 1)) {
-        newColorNum = 0;
+      var randomColor = '#';
+      let h;
+      for (h = 0; h < 6; h++) {
+	var newNum = Math.floor(Math.random()*16).toString(16);
+	newNum = (newNum == 10) ? 'f' : newNum;
+	randomColor = randomColor.concat(newNum);
       }
-      this.setState({currentColorNum: newColorNum});
+      this.setState({currentColor: randomColor});
     }
   }  
 
