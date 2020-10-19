@@ -28,13 +28,13 @@ class Area extends React.Component {
     let initialSquares = [];
     let i;
     for (i = 0; i < 49; i++) {
-      initialSquares.push('ForestGreen');
+      initialSquares.push(this.props.colorList[0]);
     }
     this.state = {squareColors: initialSquares, currentColorNum: 1};
   }
 
   mouseOn(value) {
-    const colorList = ['ForestGreen', 'cyan', '#990000', 'blue', 'orange']
+    const colorList = this.props.colorList;
     let currentSquares = this.state.squareColors;
     currentSquares[value] = colorList[this.state.currentColorNum];
     this.setState({squareColors: currentSquares});
@@ -47,19 +47,14 @@ class Area extends React.Component {
       console.log('b');*/
       if (String(this.state.squareColors[k]) != String(colorList[this.state.currentColorNum])) {
         colorDone = false;
-	//console.log('we got here');
-        console.log(k);
-	console.log(colorDone);
       }
     }
-    console.log(colorDone);
     if (colorDone === true) {
-      console.log('Why are we here?');
       let newColorNum = this.state.currentColorNum;
-      console.log(newColorNum);
       newColorNum++;
       console.log(newColorNum);
-      if (newColorNum > 4) {
+      console.log(colorList.length)
+      if (newColorNum > (colorList.length - 1)) {
         newColorNum = 0;
       }
       this.setState({currentColorNum: newColorNum});
@@ -74,7 +69,6 @@ class Area extends React.Component {
     for (i = 0; i < 7; i++) {
        for (j = 0; j < 7; j++) {
          keyValue = i * 7 + j;
-         //console.log(keyValue);
          squares.push(<Square mouseOn={this.mouseOn} value={keyValue} key={keyValue} color={this.state.squareColors[keyValue]}/>);
        }
     }
@@ -101,6 +95,6 @@ class Area extends React.Component {
 
 
 ReactDOM.render(
-  <Area />,
+  <Area colorList={['#000000', '#eeeeee', '#33bb55', 'cyan', '#990000', '#dddd44', 'blue', '#ddbbbb', 'orange']} />,
   document.getElementById('root')
 );
