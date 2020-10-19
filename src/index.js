@@ -15,7 +15,6 @@ class Square extends React.Component {
 
   render() {
     const cssStyle = {backgroundColor: this.props.color};
-    console.log(cssStyle);
     return (
       <div className="square" onMouseOver={this.changeBackground} style={cssStyle}></div>
     );
@@ -31,7 +30,7 @@ class Area extends React.Component {
     for (i = 0; i < 49; i++) {
       initialSquares.push('ForestGreen');
     }
-    this.state = {squareColors: initialSquares, currentColorNum: 0};
+    this.state = {squareColors: initialSquares, currentColorNum: 1};
   }
 
   mouseOn(value) {
@@ -40,16 +39,26 @@ class Area extends React.Component {
     currentSquares[value] = colorList[this.state.currentColorNum];
     this.setState({squareColors: currentSquares});
     let k;
-    let colorDone = true;
+    var colorDone = true;
     for (k = 0; k < 49; k++) {
-      if (this.state.squareColors[k] == colorList[this.state.currentColorNum]) {
+      /*console.log('a');
+      console.log(this.state.squareColors[k]);
+      console.log(colorList[this.state.currentColorNum]);
+      console.log('b');*/
+      if (String(this.state.squareColors[k]) != String(colorList[this.state.currentColorNum])) {
         colorDone = false;
-        break;
+	//console.log('we got here');
+        console.log(k);
+	console.log(colorDone);
       }
     }
-    if (colorDone == true); {
+    console.log(colorDone);
+    if (colorDone === true) {
+      console.log('Why are we here?');
       let newColorNum = this.state.currentColorNum;
+      console.log(newColorNum);
       newColorNum++;
+      console.log(newColorNum);
       if (newColorNum > 4) {
         newColorNum = 0;
       }
